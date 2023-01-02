@@ -3,8 +3,13 @@ import User from "../models/User";
 import bcrypt from 'bcryptjs'
 import jwt from "jsonwebtoken";
 
+type RequestBody = {
+    name: string;
+    email: string;
+    password: string
+}
 export const registerUser = async (req: Request, res: Response) => {
-    const { name, email, password } = req.body;
+    const { name, email, password }: RequestBody = req.body;
 
     // hash the password
     const salt = await bcrypt.genSalt(10);

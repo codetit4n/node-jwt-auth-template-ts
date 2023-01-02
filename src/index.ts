@@ -4,7 +4,6 @@ import { connectDB } from './db/connect'
 import { notFound } from './middleware/not-found'
 import authRoute from './routes/auth'
 import protectedRoutes from './routes/protected'
-require('dotenv').config()
 
 const port = process.env.PORT || 3000;
 

@@ -8,10 +8,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.registerValidation = void 0;
 const zod_1 = require("zod");
-const User = require('../models/User');
+const User_1 = __importDefault(require("../models/User"));
 // Zod Validations
 const registerSchema = zod_1.z.object({
     name: zod_1.z.string().min(3),
@@ -24,8 +27,9 @@ const registerValidation = (req, res, next) => __awaiter(void 0, void 0, void 0,
     if (!parsed.success)
         res.status(400).send(parsed.error);
     else {
+        const { emailFromBody } = req.body;
         // checking to see if the user is already registered
-        const emailExist = yield User.findOne({ email: req.body.email });
+        const emailExist = yield User_1.default.findOne({ email: emailFromBody });
         if (emailExist)
             res.status(400).send('Email already exists!!!');
         else

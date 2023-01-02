@@ -18,7 +18,6 @@ const connect_1 = require("./db/connect");
 const not_found_1 = require("./middleware/not-found");
 const auth_1 = __importDefault(require("./routes/auth"));
 const protected_1 = __importDefault(require("./routes/protected"));
-require('dotenv').config();
 const port = process.env.PORT || 3000;
 // middleware
 app.use(express_1.default.json());

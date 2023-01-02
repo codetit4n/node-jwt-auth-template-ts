@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 
 import { z } from "zod";
-const User = require('../models/User');
+import User from "../models/User";
 
 // Zod Validations
 const registerSchema = z.object({
@@ -10,15 +10,19 @@ const registerSchema = z.object({
     password: z.string().min(6)
 }).strict();
 
-
+type RequestBody = {
+    emailFromBody: string;
+    passwordFromBody: string
+}
 export const registerValidation = async (req: Request, res: Response, next: NextFunction) => {
     // validating using joi
     const parsed = registerSchema.safeParse(req.body);
     if (!parsed.success)
         res.status(400).send(parsed.error)
     else {
+        const { emailFromBody }: RequestBody = req.body;
         // checking to see if the user is already registered
-        const emailExist = await User.findOne({ email: req.body.email })
+        const emailExist = await User.findOne({ email: emailFromBody })
         if (emailExist)
             res.status(400).send('Email already exists!!!')
         else

@@ -27,11 +27,12 @@ const loginValidation = (req, res, next) => __awaiter(void 0, void 0, void 0, fu
     if (!parsed.success)
         res.status(400).send(parsed.error);
     else {
+        const { emailFromBody, passwordFromBody } = req.body;
         // checking if the email exists
-        const user = yield User_1.default.findOne({ email: req.body.email });
+        const user = yield User_1.default.findOne({ email: emailFromBody });
         if (user) {
             // checking if the password is correct
-            const validPass = yield bcryptjs_1.default.compare(req.body.password, user.password);
+            const validPass = yield bcryptjs_1.default.compare(passwordFromBody, user.password);
             if (validPass) {
                 req.userId = user._id;
                 next();

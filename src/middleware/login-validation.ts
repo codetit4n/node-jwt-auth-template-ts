@@ -3,6 +3,10 @@ import { z } from "zod";
 import bcrypt from 'bcryptjs'
 import User from '../models/User';
 
+type RequestBody = {
+    emailFromBody: string;
+    passwordFromBody: string
+}
 
 // Zod Validations
 const loginSchema = z.object({
@@ -16,11 +20,12 @@ export const loginValidation = async (req: Request, res: Response, next: NextFun
     if (!parsed.success)
         res.status(400).send(parsed.error)
     else {
+        const { emailFromBody, passwordFromBody }: RequestBody = req.body;
         // checking if the email exists
-        const user = await User.findOne({ email: req.body.email })
+        const user = await User.findOne({ email: emailFromBody })
         if (user) {
             // checking if the password is correct
-            const validPass = await bcrypt.compare(req.body.password, user.password)
+            const validPass = await bcrypt.compare(passwordFromBody, user.password)
             if (validPass) {
                 req.userId = user._id;
                 next();
