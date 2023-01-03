@@ -4,8 +4,11 @@ import { connectDB } from './db/connect'
 import { notFound } from './middleware/not-found'
 import authRoute from './routes/auth'
 import protectedRoutes from './routes/protected'
+import dotenv from 'dotenv'
+dotenv.config()
 
 const port = process.env.PORT || 3000;
+
 
 // middleware
 app.use(express.json())

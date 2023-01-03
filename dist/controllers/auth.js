@@ -18,10 +18,8 @@ const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const registerUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { name, email, password } = req.body;
-    // hash the password
     const salt = yield bcryptjs_1.default.genSalt(10);
     const hashedPassword = yield bcryptjs_1.default.hash(password, salt);
-    // store the user in db
     const user = new User_1.default({
         name: name,
         email: email,
@@ -37,7 +35,6 @@ const registerUser = (req, res) => __awaiter(void 0, void 0, void 0, function* (
 });
 exports.registerUser = registerUser;
 const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    // Create and assign a JWT
     const token = jsonwebtoken_1.default.sign({ id: req.userId }, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_LIFETIME
     });

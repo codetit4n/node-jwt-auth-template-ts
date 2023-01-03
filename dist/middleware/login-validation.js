@@ -16,22 +16,18 @@ exports.loginValidation = void 0;
 const zod_1 = require("zod");
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const User_1 = __importDefault(require("../models/User"));
-// Zod Validations
 const loginSchema = zod_1.z.object({
     email: zod_1.z.string().min(6).email(),
     password: zod_1.z.string().min(6)
 }).strict();
 const loginValidation = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    // validating using joi
     const parsed = loginSchema.safeParse(req.body);
     if (!parsed.success)
         res.status(400).send(parsed.error);
     else {
-        const { emailFromBody, passwordFromBody } = req.body;
-        // checking if the email exists
+        const { email: emailFromBody, password: passwordFromBody } = req.body;
         const user = yield User_1.default.findOne({ email: emailFromBody });
         if (user) {
-            // checking if the password is correct
             const validPass = yield bcryptjs_1.default.compare(passwordFromBody, user.password);
             if (validPass) {
                 req.userId = user._id;

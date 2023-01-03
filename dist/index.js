@@ -18,12 +18,12 @@ const connect_1 = require("./db/connect");
 const not_found_1 = require("./middleware/not-found");
 const auth_1 = __importDefault(require("./routes/auth"));
 const protected_1 = __importDefault(require("./routes/protected"));
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 const port = process.env.PORT || 3000;
-// middleware
 app.use(express_1.default.json());
-// Routes
 app.use('/api/user', auth_1.default);
-app.use('/api/protected', protected_1.default); // just for example
+app.use('/api/protected', protected_1.default);
 app.use(not_found_1.notFound);
 const start = () => __awaiter(void 0, void 0, void 0, function* () {
     try {

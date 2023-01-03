@@ -10,7 +10,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.sampleController = void 0;
-// sample controller - it will be executed after the JWT validation.
 const sampleController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.status(200).json({ data: 'This is only accessible using JWT', user: req.user });
 });

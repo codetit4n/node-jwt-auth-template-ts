@@ -11,8 +11,7 @@ const registerSchema = z.object({
 }).strict();
 
 type RequestBody = {
-    emailFromBody: string;
-    passwordFromBody: string
+    email: string;
 }
 export const registerValidation = async (req: Request, res: Response, next: NextFunction) => {
     // validating using joi
@@ -20,7 +19,7 @@ export const registerValidation = async (req: Request, res: Response, next: Next
     if (!parsed.success)
         res.status(400).send(parsed.error)
     else {
-        const { emailFromBody }: RequestBody = req.body;
+        const { email: emailFromBody }: RequestBody = req.body;
         // checking to see if the user is already registered
         const emailExist = await User.findOne({ email: emailFromBody })
         if (emailExist)

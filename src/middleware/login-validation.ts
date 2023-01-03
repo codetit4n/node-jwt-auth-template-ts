@@ -4,8 +4,8 @@ import bcrypt from 'bcryptjs'
 import User from '../models/User';
 
 type RequestBody = {
-    emailFromBody: string;
-    passwordFromBody: string
+    email: string;
+    password: string
 }
 
 // Zod Validations
@@ -20,7 +20,7 @@ export const loginValidation = async (req: Request, res: Response, next: NextFun
     if (!parsed.success)
         res.status(400).send(parsed.error)
     else {
-        const { emailFromBody, passwordFromBody }: RequestBody = req.body;
+        const { email: emailFromBody, password: passwordFromBody }: RequestBody = req.body;
         // checking if the email exists
         const user = await User.findOne({ email: emailFromBody })
         if (user) {

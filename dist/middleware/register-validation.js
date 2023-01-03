@@ -15,20 +15,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.registerValidation = void 0;
 const zod_1 = require("zod");
 const User_1 = __importDefault(require("../models/User"));
-// Zod Validations
 const registerSchema = zod_1.z.object({
     name: zod_1.z.string().min(3),
     email: zod_1.z.string().min(6).email(),
     password: zod_1.z.string().min(6)
 }).strict();
 const registerValidation = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    // validating using joi
     const parsed = registerSchema.safeParse(req.body);
     if (!parsed.success)
         res.status(400).send(parsed.error);
     else {
-        const { emailFromBody } = req.body;
-        // checking to see if the user is already registered
+        const { email: emailFromBody } = req.body;
         const emailExist = yield User_1.default.findOne({ email: emailFromBody });
         if (emailExist)
             res.status(400).send('Email already exists!!!');
