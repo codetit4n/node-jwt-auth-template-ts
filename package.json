@@ -1,7 +1,7 @@
 {
   "name": "node-jwt-auth-template-ts",
   "version": "1.0.0",
-  "description": "About Basic template you can use in your Node Backends for JWT authentication - TypeScript edition.",
+  "description": "Basic template you can use in your Node Backends for JWT authentication - TypeScript edition.",
   "main": "index.js",
   "scripts": {
     "start": "node dist/index.js",
