@@ -8,14 +8,14 @@ type RequestBody = {
     password: string
 }
 
-// Zod Validations
+// zod Validations
 const loginSchema = z.object({
     email: z.string().min(6).email(),
     password: z.string().min(6)
 }).strict();
 
 export const loginValidation = async (req: Request, res: Response, next: NextFunction) => {
-    // validating using joi
+    // validating using zod
     const parsed = loginSchema.safeParse(req.body);
     if (!parsed.success)
         res.status(400).send(parsed.error)
