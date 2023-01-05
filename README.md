@@ -31,14 +31,14 @@ git clone https://github.com/codeTIT4N/node-jwt-auth-template-ts
 4. Go inside the project and run the following commands:
 ```bash
 npm install
-tsc
+npm run build
 npm start
 ```
 5. Edit the src/routes/protected.ts file for the protected routes according to your project's needs. One example is provided in this file.
 
 6. Edit the src/controllers/protected.ts file for the controllers that will be executed after JWT validation. One example is provided in this file.
 
-7. To compile TypeScript code to JavaScript and see the changes in real time, in a different terminal instance run:
+7. To compile TypeScript code to JavaScript and see the changes in real time, in a different terminal instance, run:
 ```bash
 tsc -w
 ```

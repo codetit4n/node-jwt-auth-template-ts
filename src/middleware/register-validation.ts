@@ -3,7 +3,7 @@ import { Request, Response, NextFunction } from "express";
 import { z } from "zod";
 import User from "../models/User";
 
-// Zod Validations
+// zod Validations
 const registerSchema = z.object({
     name: z.string().min(3),
     email: z.string().min(6).email(),
@@ -14,7 +14,7 @@ type RequestBody = {
     email: string;
 }
 export const registerValidation = async (req: Request, res: Response, next: NextFunction) => {
-    // validating using joi
+    // validating using zod
     const parsed = registerSchema.safeParse(req.body);
     if (!parsed.success)
         res.status(400).send(parsed.error)
