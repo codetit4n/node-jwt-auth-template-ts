@@ -16,6 +16,7 @@ const express_1 = __importDefault(require("express"));
 const app = (0, express_1.default)();
 const connect_1 = require("./db/connect");
 const not_found_1 = require("./middleware/not-found");
+const error_handler_1 = require("./middleware/error-handler");
 const auth_1 = __importDefault(require("./routes/auth"));
 const protected_1 = __importDefault(require("./routes/protected"));
 const dotenv_1 = __importDefault(require("dotenv"));
@@ -25,6 +26,7 @@ app.use(express_1.default.json());
 app.use('/api/user', auth_1.default);
 app.use('/api/protected', protected_1.default);
 app.use(not_found_1.notFound);
+app.use(error_handler_1.errorHandlerMiddleware);
 const start = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield (0, connect_1.connectDB)(process.env.MONGO_URI);

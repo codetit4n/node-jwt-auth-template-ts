@@ -1,2 +1,3 @@
-import { RequestHandler } from "express"
-export const notFound: RequestHandler = (_, res) => res.status(404).send('Route does not exist!')
+import { Response, Request } from "express"
+
+export const notFound = (_: Request, res: Response) => res.status(404).send('Route does not exist!')
